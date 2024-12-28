@@ -41,10 +41,13 @@ int main(int argc, const char* argv[]) {
                 add(instr);
                 break;
             case OP_AND:
+                add(instr);
                 break;
             case OP_NOT:
+                not(instr);
                 break;
             case OP_BR:
+                branch(instr);
                 break;
             case OP_JMP:
                 break;
@@ -53,6 +56,7 @@ int main(int argc, const char* argv[]) {
             case OP_LD:
                 break;
             case OP_LDI:
+                loadIndirect(instr);
                 break;
             case OP_LDR:
                 break;
