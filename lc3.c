@@ -50,31 +50,43 @@ int main(int argc, const char* argv[]) {
                 branch(instr);
                 break;
             case OP_JMP:
+                jump(instr);
                 break;
             case OP_JSR:
+                jumpToSubroutine(instr);
                 break;
             case OP_LD:
+                load(instr);
                 break;
             case OP_LDI:
                 loadIndirect(instr);
                 break;
             case OP_LDR:
+                loadRegister(instr);
                 break;
             case OP_LEA:
+                loadEffectiveAddress(instr);
                 break;
             case OP_ST:
+                store(instr);
                 break;
             case OP_STI:
+                storeIndirect(instr);
                 break;
             case OP_STR:
+                storeRegister(instr);
                 break;
             case OP_TRAP:
+                trap(instr);
                 break;
             case OP_RES:
+                abort();
                 break;
             case OP_RTI:
+                abort();
                 break;
             default:
+                printf("BAD OPCODE!\n");
                 break;
         }
     }
