@@ -1,3 +1,6 @@
+#ifndef _INSTRUCTION_SET
+#define _INSTRUCTION_SET
+
 #include <stdint.h>
 
 #include "opcodes.h"
@@ -22,3 +25,5 @@ void trapOut();
 void trapPuts();
 void trapPutSP();
 void trap(uint16_t instruction);
+
+#endif

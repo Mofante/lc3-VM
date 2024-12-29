@@ -1,9 +1,12 @@
+#ifndef _CORE
+#define _CORE
+
 #include <stdio.h>
 #include <stdint.h>
 
 #define MEMORY_MAX (1 << 16)
 
-uint16_t memory[MEMORY_MAX];
+extern uint16_t memory[MEMORY_MAX];
 
 enum {
     R_R0 = 0,
@@ -19,7 +22,12 @@ enum {
     R_COUNT
 };
 
-uint16_t reg[R_COUNT];
+enum {
+    MR_KBSR = 0xFE00,       // keyboard status
+    MR_KBDR = 0xFE02        // keyboard data
+};
+
+extern uint16_t reg[R_COUNT];
 
 // condition flags
 enum {
@@ -30,6 +38,10 @@ enum {
 
 void update_flags(uint16_t r);
 
-
 void read_image_file(FILE* file);
 int read_image(const char* image_path);
+
+void mem_write(uint16_t address, uint16_t value);
+uint16_t mem_read(uint16_t address);
+
+#endif

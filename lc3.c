@@ -1,13 +1,21 @@
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <signal.h>
 
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/termios.h>
+#include <sys/mman.h>
 #include "utils.h"
 #include "core.h"
 #include "instruction_set.h"
 
+
 int main(int argc, const char* argv[]) {
-    
+
     // load args
 
     if (argc < 2) {
@@ -21,6 +29,11 @@ int main(int argc, const char* argv[]) {
             exit(1);
         }
     }
+    
+    // adjust buffering settings
+
+    signal(SIGINT, handle_interrupt);
+    disable_input_buffering();
 
     // exactly one cond flag should be set at any given time
     reg[R_COND] = FL_ZRO;
@@ -41,7 +54,7 @@ int main(int argc, const char* argv[]) {
                 add(instr);
                 break;
             case OP_AND:
-                add(instr);
+                and(instr);
                 break;
             case OP_NOT:
                 not(instr);
@@ -90,37 +103,5 @@ int main(int argc, const char* argv[]) {
                 break;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
+    restore_input_buffering();
 }

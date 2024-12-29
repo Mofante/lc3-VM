@@ -1,3 +1,6 @@
+#ifndef _OPCODES
+#define _OPCODES
+
 enum {
     OP_BR = 0,  // branch
     OP_ADD,     // add
@@ -25,3 +28,5 @@ enum {
     TRAP_PUTSP = 0x24,      // output a byte string
     TRAP_HALT = 0x25        // halt the program
 };
+
+#endif

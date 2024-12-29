@@ -42,7 +42,7 @@ void not(uint16_t instruction) {
     uint16_t dr = (instruction >> 9) & 0x7;
     uint16_t sr = (instruction >> 6) & 0x7;
 
-    reg[dr] = ~sr;
+    reg[dr] = ~reg[sr];
     update_flags(dr);
 }
 
@@ -176,6 +176,8 @@ void trapPutSP() {
 
 void trapHalt() {
     printf("HALT\n");
+    fflush(stdout);
+    restore_input_buffering();
     exit(0);
 }
 

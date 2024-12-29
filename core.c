@@ -1,8 +1,10 @@
 #include "core.h"
 #include "utils.h"
-#include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+
+uint16_t memory[MEMORY_MAX];
+uint16_t reg[R_COUNT];
 
 void update_flags(uint16_t r) {
     if (reg[r] == 0) reg[R_COND] = FL_ZRO;
@@ -31,4 +33,18 @@ int read_image(const char *image_path) {
     read_image_file(file);
     fclose(file);
     return 1;
+}
+
+void mem_write(uint16_t address, uint16_t value) {
+    memory[address] = value;
+}
+
+uint16_t mem_read(uint16_t address) {
+    if (address == MR_KBSR) {
+        if (check_key()) {
+            memory[MR_KBSR] = (1 << 15);
+            memory[MR_KBDR] = getchar();
+        } else memory[MR_KBSR] = 0;
+    }
+    return memory[address];
 }
