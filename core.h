@@ -1,6 +1,7 @@
-#define MEMORY_MAX (1 << 16)
-
+#include <stdio.h>
 #include <stdint.h>
+
+#define MEMORY_MAX (1 << 16)
 
 uint16_t memory[MEMORY_MAX];
 
@@ -28,3 +29,7 @@ enum {
 };
 
 void update_flags(uint16_t r);
+
+
+void read_image_file(FILE* file);
+int read_image(const char* image_path);
